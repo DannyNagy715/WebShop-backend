@@ -32,6 +32,11 @@ public class UserController {
         return new ResponseEntity<>(userService.findUserByEmail(email), HttpStatus.OK);
     }
 
+    @GetMapping({"{username}"})
+    public ResponseEntity<?> findUserByUsername(@PathVariable String username) {
+        return new ResponseEntity<>(userService.findUserByUsername(username), HttpStatus.OK);
+    }
+
     @GetMapping
     public ResponseEntity<?> findUsers() {
         return new ResponseEntity<>(userService.findAllUsers(), HttpStatus.OK);
