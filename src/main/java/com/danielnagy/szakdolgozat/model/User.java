@@ -55,4 +55,9 @@ public class User {
     @Getter
     @Setter
     private UserRole role;
+
+    @Transient
+    @Getter
+    @Setter
+    private String token;
 }
