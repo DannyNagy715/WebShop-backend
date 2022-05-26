@@ -36,7 +36,7 @@ public class User {
     @Setter
     private String lastName;
 
-    @Column(nullable = false, length = 100)
+    @Column(unique = true, nullable = false, length = 100)
     @Getter
     @Setter
     private String email;
@@ -55,4 +55,9 @@ public class User {
     @Getter
     @Setter
     private UserRole role;
+
+    @Transient
+    @Getter
+    @Setter
+    private String token;
 }
