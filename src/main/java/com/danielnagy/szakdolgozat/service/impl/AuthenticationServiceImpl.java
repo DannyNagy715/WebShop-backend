@@ -4,6 +4,7 @@ import com.danielnagy.szakdolgozat.model.User;
 import com.danielnagy.szakdolgozat.security.UserPrincipal;
 import com.danielnagy.szakdolgozat.security.jwt.JwtProvider;
 import com.danielnagy.szakdolgozat.service.AuthenticationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -11,18 +12,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
+    @Autowired
+    private AuthenticationManager authenticationManager;
+    @Autowired
+    private JwtProvider jwtProvider;
 
-    private final AuthenticationManager authenticationManager;
-
-    private final JwtProvider jwtProvider;
-
-    public AuthenticationServiceImpl(AuthenticationManager authenticationManager, JwtProvider jwtProvider) {
-        this.authenticationManager = authenticationManager;
-        this.jwtProvider = jwtProvider;
-    }
 
     @Override
-    public User signInAndPassJwt(User signInRequest) {
+    public User signInAndReturnJWT(User signInRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(signInRequest.getUsername(), signInRequest.getPassword())

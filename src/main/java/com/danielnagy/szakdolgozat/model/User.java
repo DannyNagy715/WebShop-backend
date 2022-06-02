@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
@@ -16,12 +17,12 @@ public class User {
     @Getter
     private Long id;
 
-    @Column(nullable = false, length = 30)
+    @Column(unique = true, nullable = false, length = 30)
     @Getter
     @Setter
     private String username;
 
-    @Column(nullable = false, length = 32)
+    @Column(nullable = false)
     @Setter
     @Getter
     private String password;
@@ -60,4 +61,10 @@ public class User {
     @Getter
     @Setter
     private String token;
+
+    @Column(name = "create_time", nullable = false)
+    @Getter
+    @Setter
+    private LocalDateTime createTime;
+
 }

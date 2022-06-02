@@ -50,7 +50,7 @@ public class Phone {
     @Setter
     private int price;
 
-    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     @Getter
     @Setter
     private PhoneType phoneType;

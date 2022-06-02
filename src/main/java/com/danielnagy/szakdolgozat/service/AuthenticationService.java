@@ -5,5 +5,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface AuthenticationService {
-    User signInAndPassJwt(User signInRequest);
+    User signInAndReturnJWT(User signInRequest);
 }

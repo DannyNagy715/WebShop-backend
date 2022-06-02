@@ -35,7 +35,7 @@ public class AuthenticationController {
 
     @PostMapping("sign-in")
     public ResponseEntity<?> signIn(@RequestBody User user){
-        log.info("User login: " + user.getUsername() + " email: " + user.getEmail());
-        return new ResponseEntity<>(authenticationService.signInAndPassJwt(user), HttpStatus.OK);
+        log.info("User login: " + user.getUsername() + " email: " + user.getEmail() + "token" + user.getToken());
+        return new ResponseEntity<>(authenticationService.signInAndReturnJWT(user), HttpStatus.OK);
     }
 }

@@ -23,14 +23,13 @@ import java.util.stream.Collectors;
 
 @Component
 public class JwTProviderImpl implements JwtProvider {
-
     @Value("${app.jwt.secret}")
     private String JWT_SECRET;
 
     @Value("${app.jwt.expiration-in.ms}")
     private Long JWT_EXPIRATION_IN_MS;
 
-    public String generateToken(UserPrincipal auth) {
+    public String generateToken(UserPrincipal auth){
         String authorities = auth.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
@@ -42,15 +41,15 @@ public class JwTProviderImpl implements JwtProvider {
                 .claim("roles", authorities)
                 .claim("userId", auth.getId())
                 .setExpiration(new Date(System.currentTimeMillis() + JWT_EXPIRATION_IN_MS))
-                .signWith(SignatureAlgorithm.HS512, key)
+                .signWith(key, SignatureAlgorithm.HS512)
                 .compact();
     }
 
     @Override
-    public Authentication getAuthentication(HttpServletRequest request) {
+    public Authentication getAuthentication(HttpServletRequest request){
         Claims claims = extractClaims(request);
 
-        if (claims == null) {
+        if (claims == null){
             return null;
         }
 
@@ -67,29 +66,27 @@ public class JwTProviderImpl implements JwtProvider {
                 .id(userId)
                 .build();
 
-        if (username == null) {
+        if (username == null){
             return null;
         }
         return new UsernamePasswordAuthenticationToken(userDetails, null, authorities);
-
     }
 
     @Override
-    public boolean isTokenValid(HttpServletRequest request) {
+    public boolean isTokenValid(HttpServletRequest request){
         Claims claims = extractClaims(request);
 
-        if (claims == null) {
+        if (claims == null){
             return false;
         }
 
         return !claims.getExpiration().before(new Date());
-
     }
 
-    private Claims extractClaims(HttpServletRequest request) {
+    private Claims extractClaims(HttpServletRequest request){
         String token = SecurityUtils.extractAuthTokenFromRequest(request);
 
-        if (token == null) {
+        if (token == null){
             return null;
         }
 

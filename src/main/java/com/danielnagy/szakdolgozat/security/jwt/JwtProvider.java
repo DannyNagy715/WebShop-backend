@@ -7,9 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 
 public interface JwtProvider {
 
-    String generateToken(UserPrincipal auth);
 
-    Authentication getAuthentication(HttpServletRequest request);
+        String generateToken(UserPrincipal auth);
 
-    boolean isTokenValid(HttpServletRequest request);
+        Authentication getAuthentication(HttpServletRequest request);
+
+        boolean isTokenValid(HttpServletRequest request);
+
 }
