@@ -2,7 +2,6 @@ package com.danielnagy.szakdolgozat.security;
 
 import com.danielnagy.szakdolgozat.model.enums.UserRole;
 import com.danielnagy.szakdolgozat.security.jwt.JwtAuthorizationFilter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -22,9 +21,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private CustomUserDetailService customUserDetailService;
 
+    private final CustomUserDetailService customUserDetailService;
+
+    public SecurityConfig(CustomUserDetailService customUserDetailService) {
+        this.customUserDetailService = customUserDetailService;
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

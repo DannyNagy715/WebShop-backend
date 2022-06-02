@@ -3,7 +3,7 @@ package com.danielnagy.szakdolgozat.service.impl;
 import com.danielnagy.szakdolgozat.model.User;
 import com.danielnagy.szakdolgozat.repository.UserRepository;
 import com.danielnagy.szakdolgozat.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +16,11 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+
+    private final PasswordEncoder passwordEncoder;
 
     public UserServiceImpl(UserRepository userRepository) {
+        this.passwordEncoder = new BCryptPasswordEncoder();
         this.userRepository = userRepository;
     }
 
